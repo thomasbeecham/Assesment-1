@@ -42,7 +42,7 @@ int main () {
 		
 		printf("%c", cypher);
 		i++;
-	
+//	
 }
 }
 
