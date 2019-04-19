@@ -1,53 +1,118 @@
-# include <stdio.h>
-#include<string.h>// for stringlen()
-#include<stdlib.h>
+ #include <stdio.h>
+
 // Note: 65 - 90 = Captial letters a-z
 // 97 - 122 = lower case letters a-z
 // (c = c - 65) converts each letter of alphabet to a number
-void encryptRotate(char* strAlpha, int key);
-void decryptRotate(int x);
-void encyrptSubstitute(int x);
+
+// each function performs a specific task (name indicative of task)
+char encryptRotate(char* text, int key);
+char decryptRotate(char* text, int key);
+//char encyrptSubstitute();
+//char decryptSubstitute()
+//char decryptRotateText()
+//char decryptSubstituteText()
 
 int main () {
-    int key = 1;
-	char strAlpha[101];
+    char text[100];
+    char alphabet[100];
+    char rotateAlphabet[100];
+    int key;
+    // menu for choosing which task to use
+    printf("Please select an option: \n");
+    printf("a) Encrypt using rotation cypher \n");
+    printf("b) Decrypt using rotation cypher \n");
+    printf("c) Encrypt using substitution cypher \n");
+    printf("d) Decrypt using substitution cypher \n");    
+    printf("e) Decrypt text only using rotation cypher \n");
+    printf("f) Decrypt text only using substitution cypher \n");
+    printf("Selection: ");
+    char selection;
+    scanf("%c", &selection);
+    
+    switch (selection)  {
+        case 'a': encryptRotate(text, key); break;
+        case 'b': decryptRotate(text, key); break;
+//        case 'c': encryptSubstitute(text, key); break;
+//        case 'd': decryptSubstitute(text, key); break;
+    //  case 'e': DecryptRotateText(); break;
+    //  case 'e': DecryptSubstituteText(); break; 
+        default: printf("Uknown option %c/n Please enter a, b, c or d/n");
+    }
+    return 0;
+    }	
 	
-	//Ask the user for the text to encrypt
-	printf("Please enter the plain text you want to encrypt: ");
+
+//alvndsv
+
+	//==================================Rotate Encryption Function=======================================//
+char encryptRotate(char* text, int key)    {
+	char msg;
+	int n;
+	printf("Enter a message to encrypt: ");
+	scanf("%[^\n]*c", text); // gets whole message entered 
+	// e.g "Hello world" scanf would only get "Hello"
+	printf("Enter Key: ");
+	scanf("%d", &key);
 	
-	//Get the users text input and stores it in plainText variable
-	fgets(strAlpha, sizeof(strAlpha), stdin);
-	
-	//Prints the ciphered text
-	printf("The ciphered text is: ");
-	
-	//Prints the ciphered text
-	encryptRotate(strAlpha, key);
-	
-	system("pause");
-    	
-    	
+	for(n = 0; text[n] != '\0'; ++n){
+	    msg = text[n]; 
+	    
+	    if (msg >= 'a' && msg <= 'z')   {
+	        msg = msg + key;
+	        
+	        if(msg > 'z') {
+	            msg = msg - 'z' + 'a' - 1;
+	    }
+	    text[n] = msg;	    
+	}
+	else if(msg >= 'A' && msg <= 'Z')   {
+	    msg = msg + key;
+	    
+	    if (msg > 'Z')   {
+	       msg = msg - 'Z' + 'A' - 1; 
+	    }
+	    text[n] = msg;
+	}
+    
 }
-
-	//------------------------encryption-----------------------------------------------
-	void encyrptRotate(char* strAlpha, int key) {
-	
-	int i=0;
-	int cypherValue;
-	char cypher;
-	
-	while( strAlpha[i] != '\0' && strlen(strAlpha)-1 > i){
-		cypherValue = ((int)strAlpha[i] -97 + key) % 26 + 97;
-		cypher = (char)(cypherValue);
-		
-		printf("%c", cypher);
-		i++;
-//	
+    printf("Encrypted message is: %s", text);
+    
+    return 0;
 }
+/*=====================================Decrypt Rotate Function=================================*/
+
+char decryptRotate(char* text, int key)    {
+	char msg;
+	int n;
+	printf("Enter a message to decrypt: ");
+	// NEED TO FIX **************************
+	scanf("%s", text); // gets whole message entered 
+	// e.g "Hello world" scanf would only get "Hello"
+	printf("Enter Key: ");
+	scanf("%d", &key);
+	
+	for(n = 0; text[n] != '\0'; ++n){
+	    msg = text[n];
+	    
+	    if (msg >= 'a' && msg <= 'z')   {
+	        msg = msg - key;
+	        
+	        if(msg < 'a') {
+	            msg = msg + 'z' - 'a' + 1;
+	    }
+	    text[n] = msg;	    
+	}
+	else if(msg >= 'A' && msg <= 'Z')   {
+	    msg = msg - key;
+	    
+	    if (msg < 'A')   {
+	       msg = msg + 'Z' - 'A' +1; 
+	    }
+	    text[n] = msg;
+	}
+    
 }
+printf("Decrypted message is: %s", text);
 
-	
-	
-
-
-
+return 0;
+}
