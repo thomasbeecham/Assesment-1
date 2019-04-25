@@ -7,7 +7,7 @@
 // each function performs a specific task (name indicative of task)
 char encryptRotate(char* text, int key);
 char decryptRotate(char* text, int key);
-//char encyrptSubstitute();
+char encyrptSubstitute();
 //char decryptSubstitute()
 //char decryptRotateText()
 //char decryptSubstituteText()
@@ -32,7 +32,7 @@ int main () {
     switch (selection)  {
         case 'a': encryptRotate(text, key); break;
         case 'b': decryptRotate(text, key); break;
-//        case 'c': encryptSubstitute(text, key); break;
+        case 'c': encryptSubstitute(text, key); break;
 //        case 'd': decryptSubstitute(text, key); break;
     //  case 'e': DecryptRotateText(); break;
     //  case 'e': DecryptSubstituteText(); break; 
@@ -49,7 +49,7 @@ char encryptRotate(char* text, int key)    {
 	char msg;
 	int n;
 	printf("Enter a message to encrypt: ");
-	scanf("%[^\n]*c", text); // gets whole message entered 
+	scanf("%[^]*c", text); // gets whole message entered 
 	// e.g "Hello world" scanf would only get "Hello"
 	printf("Enter Key: ");
 	scanf("%d", &key);
@@ -119,9 +119,32 @@ return 0;
 
 //=================================Substitution Encryption Function==============================
 
-//char encyrptSubstitute(char text, int key);
+char encyrptSubstitute(char text, int key);
+{
+    char message[100];
+    char newAlpha[26];
+    char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z'};
+    char character;
+    int i, n;
+    printf("Enter a message to encrypt: \n");
+    scanf("%[^\n]*c", message);
+    printf("Enter substituted alphabet IN CAPS: ");
+    scanf("%s", newAlpha);
+    
+    for(i = 0; message[i] != '\0'; i++) {
+        character = character - 32; 
+    }
+    for (n = 0; n <= 25; n++)   {
+        if (character == alpha[n])  {
+            character = newAlpha[n];
+            message[i] = character;
+            break;
+        }
+    }
 
+    printf("Encrypted message is: %s", message);
+    return 0;
+}
 
 
 //=================================Substitution Decryption Function==============================
-
