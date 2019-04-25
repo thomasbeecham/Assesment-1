@@ -86,7 +86,7 @@ char decryptRotate(char* text, int key)    {
 	int n;
 	printf("Enter a message to decrypt: ");
 	// NEED TO FIX **************************
-	scanf("%s", text); // gets whole message entered 
+	scanf("%[^\n]*c", text); // gets whole message entered 
 	// e.g "Hello world" scanf would only get "Hello"
 	printf("Enter Key: ");
 	scanf("%d", &key);
@@ -116,3 +116,12 @@ printf("Decrypted message is: %s", text);
 
 return 0;
 }
+
+//=================================Substitution Encryption Function==============================
+
+//char encyrptSubstitute(char text, int key);
+
+
+
+//=================================Substitution Decryption Function==============================
+
