@@ -7,36 +7,37 @@
 // each function performs a specific task (name indicative of task)
 char encryptRotate(char* text, int key);
 char decryptRotate(char* text, int key);
-char encyrptSubstitute();
+//char encyrptSubstitute();
 //char decryptSubstitute()
 //char decryptRotateText()
 //char decryptSubstituteText()
 
 int main () {
     char text[100];
-    char alphabet[100];
-    char rotateAlphabet[100];
+    //char alphabet[100];
+    //char rotateAlphabet[100];
+    
     int key;
     // menu for choosing which task to use
     printf("Please select an option: \n");
-    printf("a) Encrypt using rotation cypher \n");
-    printf("b) Decrypt using rotation cypher \n");
-    printf("c) Encrypt using substitution cypher \n");
-    printf("d) Decrypt using substitution cypher \n");    
-    printf("e) Decrypt text only using rotation cypher \n");
-    printf("f) Decrypt text only using substitution cypher \n");
+    printf("1) Encrypt using rotation cypher \n");
+    printf("2) Decrypt using rotation cypher \n");
+    printf("3) Encrypt using substitution cypher \n");
+    printf("4) Decrypt using substitution cypher \n");    
+    printf("5) Decrypt text only using rotation cypher \n");
+    printf("6) Decrypt text only using substitution cypher \n");
     printf("Selection: ");
-    char selection;
-    scanf("%c", &selection);
+    int selection;
+    scanf("%d", &selection);
     
     switch (selection)  {
-        case 'a': encryptRotate(text, key); break;
-        case 'b': decryptRotate(text, key); break;
-        case 'c': encryptSubstitute(text, key); break;
-//        case 'd': decryptSubstitute(text, key); break;
-    //  case 'e': DecryptRotateText(); break;
-    //  case 'e': DecryptSubstituteText(); break; 
-        default: printf("Uknown option %c/n Please enter a, b, c or d/n");
+        case 1: encryptRotate(text, key); break;
+        case 2: decryptRotate(text, key); break;
+  //      case 3: encryptSubstitute(text, key); break;
+//        case 4: decryptSubstitute(text, key); break;
+    //  case 5: DecryptRotateText(); break;
+    //  case 6: DecryptSubstituteText(); break; 
+        default: printf("Uknown option %d\n Please enter a, b, c or d", selection);
     }
     return 0;
     }	
@@ -49,7 +50,7 @@ char encryptRotate(char* text, int key)    {
 	char msg;
 	int n;
 	printf("Enter a message to encrypt: ");
-	scanf("%[^]*c", text); // gets whole message entered 
+	scanf(" %[^\n]*c", text); // gets whole message entered 
 	// e.g "Hello world" scanf would only get "Hello"
 	printf("Enter Key: ");
 	scanf("%d", &key);
@@ -75,7 +76,7 @@ char encryptRotate(char* text, int key)    {
 	}
     
 }
-    printf("Encrypted message is: %s", text);
+    printf("Encrypted message is: %s\n", text);
     
     return 0;
 }
@@ -86,7 +87,7 @@ char decryptRotate(char* text, int key)    {
 	int n;
 	printf("Enter a message to decrypt: ");
 	// NEED TO FIX **************************
-	scanf("%[^\n]*c", text); // gets whole message entered 
+	scanf(" %[^\n]*c", text); // gets whole message entered 
 	// e.g "Hello world" scanf would only get "Hello"
 	printf("Enter Key: ");
 	scanf("%d", &key);
@@ -112,13 +113,13 @@ char decryptRotate(char* text, int key)    {
 	}
     
 }
-printf("Decrypted message is: %s", text);
+printf("Decrypted message is: %s\n", text);
 
 return 0;
 }
 
 //=================================Substitution Encryption Function==============================
-
+/*
 char encyrptSubstitute(char text, int key);
 {
     char message[100];
@@ -146,5 +147,6 @@ char encyrptSubstitute(char text, int key);
     return 0;
 }
 
-
+*/
 //=================================Substitution Decryption Function==============================
+
