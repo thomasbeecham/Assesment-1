@@ -7,7 +7,7 @@
 // each function performs a specific task (name indicative of task)
 char encryptRotate(char* text, int key);
 char decryptRotate(char* text, int key);
-//char encyrptSubstitute();
+char encryptSubstitute(char* text, int key);
 //char decryptSubstitute()
 //char decryptRotateText()
 //char decryptSubstituteText()
@@ -33,7 +33,7 @@ int main () {
     switch (selection)  {
         case 1: encryptRotate(text, key); break;
         case 2: decryptRotate(text, key); break;
-  //      case 3: encryptSubstitute(text, key); break;
+        case 3: encryptSubstitute(text, key); break;
 //        case 4: decryptSubstitute(text, key); break;
     //  case 5: DecryptRotateText(); break;
     //  case 6: DecryptSubstituteText(); break; 
@@ -119,34 +119,39 @@ return 0;
 }
 
 //=================================Substitution Encryption Function==============================
-/*
-char encyrptSubstitute(char text, int key);
+
+char encryptSubstitute(char* text, int key)
 {
-    char message[100];
-    char newAlpha[26];
+
     char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z'};
+    char newAlpha[26];
     char character;
     int i, n;
-    printf("Enter a message to encrypt: \n");
-    scanf("%[^\n]*c", message);
-    printf("Enter substituted alphabet IN CAPS: ");
+    printf("Enter a message to encrypt: ");
+    scanf(" %[^\n]*c", text);
+    printf("Enter your substituted alphabet IN CAPITALS: ");
     scanf("%s", newAlpha);
     
-    for(i = 0; message[i] != '\0'; i++) {
-        character = character - 32; 
-    }
+    for(i = 0; text[i] != '\0'; i++) {
+        character = text[i]; 
+        
+        if(character >= 'a' && character <= 'z')    {
+            character = character -32;
+        }
+    
     for (n = 0; n <= 25; n++)   {
         if (character == alpha[n])  {
             character = newAlpha[n];
-            message[i] = character;
+            text[i] = character;
             break;
         }
     }
-
-    printf("Encrypted message is: %s", message);
+}
+    printf("Encrypted message is: %s\n", text);
+    printf("End of program\n");
     return 0;
 }
 
-*/
+
 //=================================Substitution Decryption Function==============================
 
