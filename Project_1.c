@@ -1,13 +1,14 @@
  #include <stdio.h>
 /* 
-This c program is a basic code which prints a menu displaying the types of ciphers you can
-use as well as a choice of decrypting or encrypting. 
+This c program is a basic code which prints a menu displaying a choice of ciphers you can
+use as well as a choice of decrypting or encrypting a message using that method.
+After your selection 
 
 */
 // Note:ASCII values 65 - 90 = Captial letters a-z
 //ASCII values 97 - 122 = lower case letters a-z
 
-// detting up function definitions BEFORE main
+// setting up function definitions BEFORE main
 // these functions are called individually depending on which task is wanted
 // each function performs a specific task (name indicative of task)
 char encryptRotate(char* text, int key);
@@ -18,12 +19,9 @@ char decryptSubstitute(char* text, int key);
 //char decryptSubstituteText()
 
 int main () {
-    unsigned char text[100];     
+     char text[100];     
     //array is defined within main
     //so it doesnt have to be defined within each function.
-    
-    //char alphabet[100];
-    //char rotateAlphabet[100];
     
     int key;
     // printing a simple menu for the user to choose which task to use
@@ -44,37 +42,33 @@ int main () {
         case 2: decryptRotate(text, key); break;
         case 3: encryptSubstitute(text, key); break;
         case 4: decryptSubstitute(text, key); break;
-    //  case 5: DecryptRotateText(); break;
-    //  case 6: DecryptSubstituteText(); break; 
+    //  case 5: decryptRotateText(); break;
+    //  case 6: decryptSubstituteText(); break; 
         default: printf("Uknown option %d\n Please enter 1, 2, 3 or 4\n", selection); // added to increase performance of menu
         // will print this message if the user selects a number outside of the selection (1-4)
     }
-
     }	
-	
 
-//alvndsv
+//====================================Rotate Encryption Function=========================================//
 
-	//==================================Rotate Encryption Function=======================================//
 /* 
  The first function, which encrypts a message using the rotation cypher. 
  NOTE how this function had to be initialised before main at the start of the code.
- 
- 
  */
 
 char encryptRotate(char* text, int key) 
 {
-	unsigned char msg;     /* needs to be unsigned char as  has data values signed char from -128 to 127 
-	and unsigned char from 0 to 255.
-	*/
+	unsigned char msg; 
+	/* needs to be unsigned char as char has data values from -128 to 127 
+	and unsigned char from 0 to 255 which enables user to use a higher key like 20+.
+	otherwise program fails and there is no ouput if value exceeds 127. 	*/
 	int n;
 	printf("Enter a message to encrypt: ");
 	scanf(" %[^\n]*c", text); // stores whole message entered as a char. 
 	//NOTE: had great trouble with this scanf as the code would skip the section.
 	//Adding a space before the % rectified this problem and allowed us to enter the message
 
-	printf("Enter Key: ");
+	printf("Enter Key: "); // key used for amount of 'rotation' in alphabet
 	scanf("%d", &key); // stores key for use in cypher 
 	
 	for(n = 0; text[n] != '\0'; ++n){
@@ -162,13 +156,14 @@ char encryptSubstitute(char* text, int key)
     scanf(" %[^\n]*c", text);   
     printf("Enter your substituted alphabet IN CAPITALS: ");    // this function requires caps input
     //
-    scanf("%s", newAlpha);  // stores this new alphabet 
+    scanf("%s", newAlpha);  // reads new string and stores it in terminal
     
     for(i = 0; text[i] != '\0'; i++) {
-        character = text[i]; 
+        character = text[i]; //each character is assigned a value in the text array
         
         if(character >= 'a' && character <= 'z')    {
-            character = character -32;
+            character = character -32; //this changes the output to upper case letters regardless if the user
+            //inputs lower case letters
         }
     
     for (n = 0; n <= 25; n++)   {
@@ -223,4 +218,3 @@ char decryptSubstitute(char* text, int key)
 Decryption of a previously unseen cipher text encrypted with a rotation cipher: 1.5 marks
 Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher: 1 mark
  */
-
