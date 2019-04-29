@@ -2,7 +2,7 @@
 /* 
 This c program is a basic code which prints a menu displaying a choice of ciphers you can
 use as well as a choice of decrypting or encrypting a message using that method.
-After your selection 
+After your selection you will be directed to the function where you can carry out your desired task
 
 */
 // Note:ASCII values 65 - 90 = Captial letters a-z
@@ -37,6 +37,7 @@ int main ()
     int selection;
     scanf("%d", &selection); // this selection is stored for use in the switch statement below
     
+    //
     // switch statement simpler and 'tidier' in this case rather than an extensive IF / IF-ELSE statement
     switch (selection)  {
         case 1: encryptRotate(text, key); break;
@@ -80,9 +81,9 @@ int encryptRotate(char* text, int key)
 // if msg is between range of a-z in ascii values it then applies the key to its value    	        
 	        if(msg > 'z') {
 	            msg = msg - 'z' + 'a' - 1;
-// the line above subtracts the ASCII value of the character in the msg[n] (n is number of rotations)
+// the line above subtracts the ASCII value of the character in the msg[n]
 //and to shift it in order to keep message in alphabets only and so that it doesn’t go in the special characters.	            
-// in other words it keeps the output value between the ascii value of a-z or A-Z keeping letters as output.
+// in other words it keeps the output value between the ascii value of a-z or A-Z  maintaining letters as the output.
 	 }
 	    text[n] = msg;	    
 	}
@@ -95,11 +96,11 @@ int encryptRotate(char* text, int key)
 // as well as lower case making the program more practical.
 	    }
 	    text[n] = msg;
+	    
 	}
     
 }
-    printf("Encrypted message is: %s\n", text); 
-        printf("End of program\n");
+    printf("Encrypted message is: %s\n", text); // prints final string to console
     
     return 0;
 }
@@ -121,13 +122,14 @@ int decryptRotate(char* text, int key)    {
 	    msg = text[n];
 
 	    if (msg >= 'a' && msg <= 'z')   {  
-	        msg = msg - key;
+	        msg = msg - key; // + sign became a - sign
 
 	        if(msg < 'a') {
-	            msg = msg + 'z' - 'a' + 1;
+	            msg = msg + 'z' - 'a' + 1; //same case here, all signs are swapped
 	    }
-	    text[n] = msg;	    
+	    text[n] = msg - 32;	 // '-32' makes lower case input letters upper case in output (changes ascii value)   
 	}
+	// same case as lower case letters
 	else if(msg >= 'A' && msg <= 'Z')   {
 	    msg = msg - key;
 	    
@@ -139,13 +141,15 @@ int decryptRotate(char* text, int key)    {
     
 }
 printf("Decrypted message is: %s\n", text);
-    printf("End of program\n");
 
 return 0;
 }
 
 //=================================Substitution Encryption Function==============================
-
+/*
+ This function takes a message then encrypts it with a new chosen alphabet. This method of encryption is much harder to 
+ decipher without being given the substituted alphabet as there is 25!(factorial) different possibilities. 
+ */
 int encryptSubstitute(char* text, int key)
 {
 
@@ -167,8 +171,8 @@ int encryptSubstitute(char* text, int key)
             //inputs lower case letters
         }
     
-    for (n = 0; n <= 25; n++)   {
-        if (character == alpha[n])  {
+    for (n = 0; n <= 25; n++)   {   // this loop tests each element of alphabet to be tested
+        if (character == alpha[n])  { //if character is an element the loop will be executed
             character = newAlpha[n];
             text[i] = character;
             break;
@@ -176,12 +180,15 @@ int encryptSubstitute(char* text, int key)
     }
 }
     printf("Encrypted message is: %s\n", text);
-    printf("End of program\n");
     return 0;
 }
 
 
 //=================================Substitution Decryption Function==============================
+/*
+ same as encryption function but with line 211 and 212 changed. alpha & newAlpha swapped allows for decryption of a message using substitution cipher.
+ 
+ */
 int decryptSubstitute(char* text, int key)
 {
     char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z'};
@@ -201,7 +208,7 @@ int decryptSubstitute(char* text, int key)
         }
     
     for (n = 0; n <= 25; n++)   {
-        if (character == newAlpha[n])  {
+        if (character == newAlpha[n])  {    
             character = alpha[n];
             text[i] = character;
             break;
@@ -209,13 +216,20 @@ int decryptSubstitute(char* text, int key)
     }
 }
     printf("Decrypted message is: %s\n", text);
-    printf("End of program\n");
 
     return 0;
 }
 
-
-
+/*=====================================Brute force Rotation cipher=============================================*/
+/*
+ This function uses a 'brute force' technique to decipher a message when the key is unknown. The rotation cipher is 
+ weaker in this regard as there is only 25 possible variations of the message. This function exploits this and prints
+ every variation of the message so the user can look which key is the correct one. It is very similar to the decryptRotate
+ function it just has an additional FOR loop pointed out below and the printf statement is moved inside this loop so it
+ prints every variation of the possible outcomes.
+ This method can be impractical in other cases where there is more variations than 25 but in this case it still 
+ achieves the acquired task.
+ */
  
  int decryptRotateBrute(char* text, int key)    {
 
@@ -225,17 +239,18 @@ int decryptSubstitute(char* text, int key)
 	scanf(" %[^\n]*c", text);  
 
 	for(key = 1; key < 27; key ++)   {
-	    // added this for loop to 'brute force' a random 
+	    // added this for loop to 'brute force' every different possible variation of the message which will be printed
+	    // at the end of the loop and repeated untill the key = 26 (to show when it has done a full cycle)
 	for(n = 0; text[n] != '\0'; ++n){
 	    msg = text[n];
 
 	    if (msg >= 'a' && msg <= 'z')   {  
-	        msg = msg - 1;
+	        msg = msg - 1; // removed key from this for loop as it would stop the key from incrementing
 
 	        if(msg < 'a') {
 	            msg = msg + 'z' - 'a' + 1;
 	    }
-	    text[n] = msg - 32;	    
+	    text[n] = msg - 32;	   //-32 converts lower case input to upper case ouput (changing ascii values)
 	}
 	else if(msg >= 'A' && msg <= 'Z')   {
 	    msg = msg - 1;
@@ -246,7 +261,9 @@ int decryptSubstitute(char* text, int key)
 	    text[n] = msg;
 	}
 	} 
-	printf("Decrypted message with key %d:/n %s\n",   key, text);
+	printf("Decrypted message with key %d:/n %s\n\n\n",   key, text);  
+	// moved inside FOR loop so the message is printed with each variation of the key
+	// repetition of newline makes it easier for user to read.
 }
 
 
@@ -254,5 +271,6 @@ return 0;
 }
 
  /*
+Decryption of a previously unseen cipher text encrypted with a rotation cipher: 1.5 marks
 Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher: 1 mark
 */
