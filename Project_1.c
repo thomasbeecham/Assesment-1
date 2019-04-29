@@ -11,14 +11,15 @@ After your selection
 // setting up function definitions BEFORE main
 // these functions are called individually depending on which task is wanted
 // each function performs a specific task (name indicative of task)
-char encryptRotate(char* text, int key);
-char decryptRotate(char* text, int key);
-char encryptSubstitute(char* text, int key);
-char decryptSubstitute(char* text, int key);
-//char decryptRotateText()
+int encryptRotate(char* text, int key);
+int decryptRotate(char* text, int key);
+int encryptSubstitute(char* text, int key);
+int decryptSubstitute(char* text, int key);
+int decryptRotateBrute(char* text, int key);
 //char decryptSubstituteText()
 
-int main () {
+int main () 
+{
      char text[100];     
     //array is defined within main
     //so it doesnt have to be defined within each function.
@@ -42,9 +43,9 @@ int main () {
         case 2: decryptRotate(text, key); break;
         case 3: encryptSubstitute(text, key); break;
         case 4: decryptSubstitute(text, key); break;
-    //  case 5: decryptRotateText(); break;
+        case 5: decryptRotateBrute(text, key); break;
     //  case 6: decryptSubstituteText(); break; 
-        default: printf("Uknown option %d\n Please enter 1, 2, 3 or 4\n", selection); // added to increase performance of menu
+        default: printf("Uknown option %d\n Please enter 1, 2, 3, 4 or 5.\n", selection); // added to increase performance of menu
         // will print this message if the user selects a number outside of the selection (1-4)
     }
     }	
@@ -56,7 +57,7 @@ int main () {
  NOTE how this function had to be initialised before main at the start of the code.
  */
 
-char encryptRotate(char* text, int key) 
+int encryptRotate(char* text, int key) 
 {
 	unsigned char msg; 
 	/* needs to be unsigned char as char has data values from -128 to 127 
@@ -108,7 +109,7 @@ char encryptRotate(char* text, int key)
  and equations apart from having the OPPOSITE signs. E.g a + sign becomes a - sign, etc.
  I have left comments for this function as it is similar to the one above.
  */
-char decryptRotate(char* text, int key)    {
+int decryptRotate(char* text, int key)    {
 	unsigned char msg;
 	int n;
 	printf("Enter a message to decrypt: ");
@@ -145,7 +146,7 @@ return 0;
 
 //=================================Substitution Encryption Function==============================
 
-char encryptSubstitute(char* text, int key)
+int encryptSubstitute(char* text, int key)
 {
 
     char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z'};
@@ -181,7 +182,7 @@ char encryptSubstitute(char* text, int key)
 
 
 //=================================Substitution Decryption Function==============================
-char decryptSubstitute(char* text, int key)
+int decryptSubstitute(char* text, int key)
 {
     char alpha[26] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q', 'R','S','T','U','V','W','X','Y','Z'};
     char newAlpha[26];
@@ -214,7 +215,44 @@ char decryptSubstitute(char* text, int key)
 }
 
 
-/*
-Decryption of a previously unseen cipher text encrypted with a rotation cipher: 1.5 marks
+
+ 
+ int decryptRotateBrute(char* text, int key)    {
+
+	unsigned char msg;
+	int n;
+	printf("Enter a message to decrypt: ");
+	scanf(" %[^\n]*c", text);  
+
+	for(key = 1; key < 27; key ++)   {
+	    // added this for loop to 'brute force' a random 
+	for(n = 0; text[n] != '\0'; ++n){
+	    msg = text[n];
+
+	    if (msg >= 'a' && msg <= 'z')   {  
+	        msg = msg - 1;
+
+	        if(msg < 'a') {
+	            msg = msg + 'z' - 'a' + 1;
+	    }
+	    text[n] = msg - 32;	    
+	}
+	else if(msg >= 'A' && msg <= 'Z')   {
+	    msg = msg - 1;
+	    
+	    if (msg < 'A')   {
+	       msg = msg + 'Z' - 'A' +1; 
+	    }
+	    text[n] = msg;
+	}
+	} 
+	printf("Decrypted message with key %d:/n %s\n",   key, text);
+}
+
+
+return 0;
+}
+
+ /*
 Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher: 1 mark
- */
+*/
