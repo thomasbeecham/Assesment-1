@@ -4,13 +4,14 @@ This c program is a basic code which prints a menu displaying a choice of cipher
 use as well as a choice of decrypting or encrypting a message using that method.
 After your selection you will be directed to the function where you can carry out your desired task
 
-*/
-// Note:ASCII values 65 - 90 = Captial letters a-z
-//ASCII values 97 - 122 = lower case letters a-z
 
-// setting up function definitions BEFORE main
-// these functions are called individually depending on which task is wanted
-// each function performs a specific task (name indicative of task)
+ Note:ASCII values 65 - 90 = Captial letters a-z
+ASCII values 97 - 122 = lower case letters a-z
+
+ setting up function definitions BEFORE main
+ these functions are called individually depending on which task is wanted
+ each function performs a specific task (name indicative of task)
+*/
 int encryptRotate(char* text, int key);
 int decryptRotate(char* text, int key);
 int encryptSubstitute(char* text, int key);
@@ -32,7 +33,6 @@ int main ()
     printf("3) Encrypt using substitution cypher \n");
     printf("4) Decrypt using substitution cypher \n");    
     printf("5) Decrypt text only using rotation cypher \n");
-    printf("6) Decrypt text only using substitution cypher \n");
     printf("Selection: ");
     int selection;
     scanf("%d", &selection); // this selection is stored for use in the switch statement below
@@ -54,7 +54,10 @@ int main ()
 //====================================Rotate Encryption Function=========================================//
 
 /* 
- The first function, which encrypts a message using the rotation cypher. 
+ The first function, which encrypts a message using the rotation cypher. each letter in the alphabet
+ is replaced by a letter some fixed number (the key) of positions down the alphabet.
+ For example, with a shift or key of 3, A would be replaced by D
+ This method of encryption is easy to decipher as there is only 25 possible variations of the same text.
  NOTE how this function had to be initialised before main at the start of the code.
  */
 
@@ -85,7 +88,7 @@ int encryptRotate(char* text, int key)
 //and to shift it in order to keep message in alphabets only and so that it doesn’t go in the special characters.	            
 // in other words it keeps the output value between the ascii value of a-z or A-Z  maintaining letters as the output.
 	 }
-	    text[n] = msg;	    
+	    text[n] = msg - 32 ; //each new character becomes an element in msg string
 	}
 	else if(msg >= 'A' && msg <= 'Z')   {
 	    msg = msg + key;
@@ -158,10 +161,10 @@ int encryptSubstitute(char* text, int key)
     char character;
     int i, n;   // i stands for index in this case
     printf("Enter a message to encrypt: ");
-    scanf(" %[^\n]*c", text);   
+    scanf(" %[^\n]*c", text);   //stores users written text in terminal
     printf("Enter your substituted alphabet IN CAPITALS: ");    // this function requires caps input
-    //
-    scanf("%s", newAlpha);  // reads new string and stores it in terminal
+    
+    scanf("%s", newAlpha);  // reads new string(newAlpha) and stores it in terminal
     
     for(i = 0; text[i] != '\0'; i++) {
         character = text[i]; //each character is assigned a value in the text array
@@ -173,7 +176,7 @@ int encryptSubstitute(char* text, int key)
     
     for (n = 0; n <= 25; n++)   {   // this loop tests each element of alphabet to be tested
         if (character == alpha[n])  { //if character is an element the loop will be executed
-            character = newAlpha[n];
+            character = newAlpha[n];    //character becomes letter in newAlpha
             text[i] = character;
             break;
         }
@@ -269,8 +272,3 @@ int decryptSubstitute(char* text, int key)
 
 return 0;
 }
-
- /*
-Decryption of a previously unseen cipher text encrypted with a rotation cipher: 1.5 marks
-Decryption of a day-1 provided block of cipher text encrypted with a substitution cipher: 1 mark
-*/
