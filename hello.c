@@ -1,17 +1,15 @@
- #include <stdio.h>
-/* 
+ /* 
 This c program is a basic code which prints a menu displaying a choice of ciphers you can
 use as well as a choice of decrypting or encrypting a message using that method.
 After your selection you will be directed to the function where you can carry out your desired task
-
-
  Note:ASCII values 65 - 90 = Captial letters a-z
 ASCII values 97 - 122 = lower case letters a-z
-
  setting up function definitions BEFORE main
  these functions are called individually depending on which task is wanted
  each function performs a specific task (name indicative of task)
 */
+ #include <stdio.h>
+ 
 int encryptRotate(char* text, int key);
 int decryptRotate(char* text, int key);
 int encryptSubstitute(char* text, int key);
@@ -21,7 +19,7 @@ int decryptRotateBrute(char* text, int key);
 
 int main () 
 {
-     char text[100];     
+     char text[1000];     
     //array is defined within main
     //so it doesnt have to be defined within each function.
     
